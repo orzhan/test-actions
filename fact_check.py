@@ -9,9 +9,10 @@ repo_url = sys.argv[1]
 head_branch = sys.argv[2]
 base_branch = sys.argv[3]
 pull_request_number = int(sys.argv[4])
+token = sys.argv[5]
 
 # Get the authentication token from the environment variable
-token = os.environ.get("GITHUB_TOKEN")
+#token = os.environ.get("GITHUB_TOKEN")
 
 # Initialize the Github object
 g = Github(token)
