@@ -16,7 +16,7 @@ token = os.environ.get("GITHUB_TOKEN")
 g = Github(token)
 
 # Get the repository object for the pull request
-repo = g.get_repo(repo_url.split("/")[-2:])
+repo = g.get_repo("/".join(repo_url.split("/")[-2:]))
 
 # Get the pull request object
 pull_request = repo.get_pull(pull_request_number)
