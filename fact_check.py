@@ -33,8 +33,8 @@ repo_path = os.environ['GITHUB_WORKSPACE']
 print('repo_path', repo_path)
 
 # Check out the base branch and head branch
-subprocess.run(['git', 'checkout', base_branch], cwd=repo_path, check=True)
-subprocess.run(['git', 'checkout', head_branch], cwd=repo_path, check=True)
+subprocess.run(['git', 'checkout', base_branch], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
+subprocess.run(['git', 'checkout', head_branch], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False)
 
 # Get the diff for the pull request
 diff_output = subprocess.check_output(['git', 'diff', '--no-prefix', '--unified=0', base_branch, head_branch], cwd=repo_path)
