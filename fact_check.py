@@ -29,7 +29,7 @@ pull_request = repo.get_pull(pull_request_number)
 #diff_response = requests.get(diff_url)
 
 # Get the repository path on the runner
-repo_path = os.path.join(os.environ['GITHUB_WORKSPACE'], repo.full_name)
+repo_path = os.environ['GITHUB_WORKSPACE']
 print('repo_path', repo_path)
 
 # Check out the base branch and head branch
