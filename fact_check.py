@@ -33,6 +33,7 @@ repo_path = os.environ['GITHUB_WORKSPACE']
 print('repo_path', repo_path)
 
 # Check out the base branch and head branch
+print('git0', subprocess.run(['git', 'fetch', '--prune', '--unshallow'], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False))
 print('git1', subprocess.run(['git', 'checkout', base_branch], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False))
 print('git2', subprocess.run(['git', 'checkout', head_branch], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False))
 
