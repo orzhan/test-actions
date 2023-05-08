@@ -98,6 +98,11 @@ def get_pull_request():
     return pull_request
     
 def get_diff(pull_request):
+    repo_url = sys.argv[1]
+    head_branch = sys.argv[2]
+    base_branch = sys.argv[3]
+    pull_request_number = int(sys.argv[4])
+    token = sys.argv[5]
     # Get the diff for the pull request
     #diff_url = f"{repo_url}/compare/{base_branch}...{head_branch}.diff"
     #diff_response = requests.get(diff_url)
