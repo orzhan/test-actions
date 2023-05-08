@@ -128,7 +128,8 @@ parts = diff_str.split('\n##')
 
 # Get statements from each segment
 
-wrong = []
+comment = ''
+
 claims = []
 had_error = False
 for p in parts:
@@ -168,21 +169,19 @@ for p in parts:
         print("Answer: " + ans)
         try:
             obj = json.loads(ans)
+            print("Parsed:", obj)
             if obj['verdict'] != 'true' and obj['verdict'] != True:
-                wrong.append(obj)
+                comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation']
         except Exception as ex:
             print(ex)
             had_error = True
         
-print("False claims: ")
-comment = ''
-
-
-for obj in wrong:    
-        comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation']
         
 if had_error:
     comment +=  f"Fact-check failed due to errors"
+    
+    
+print('comment', comment)
      
 if comment != '':
     pull_request.create_issue_comment(comment)
