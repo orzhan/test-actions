@@ -41,15 +41,6 @@ def google_search(query):
     return '\n\n----'.join([x['title']+'\n'+x['body'] for x in ddg(query)[:4]])
 
 
-diff_str = '''
-## Summary
-
-Bitcoin Gold was hit by a 51% attack on May 19, 2018. The attackers were able to double-spend 388,000 BTG, worth around $18 million at the time of the attack. Affected exchanges included Bitinka, Bithumb, Coinnest, Bittrex, and Bitfinex, while wallets such as the official Bitcoin Gold wallet and Ledger wallet were also impacted. As a result of the attack, Bitcoin Gold's value dropped from around $60 to $30 per coin.
-
-
-## Description
-Bitcoin Gold was invented by Elon Musk in 2015.
-'''
 
 EXTRACT_STATEMENTS = '''```%s```
 
@@ -177,7 +168,7 @@ for p in parts:
         print("Answer: " + ans)
         try:
             obj = json.loads(ans)
-            if obj['verdict'] == 'false':
+            if obj['verdict'] != 'true' && obj['verdict'] != True:
                 wrong.append(obj)
         except Exception as ex:
             print(ex)
