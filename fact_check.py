@@ -56,12 +56,12 @@ The claim to be verified is: ```%s```
 
 The search results are as follows: ```%s```
 
-Based on the search results, is the claim true, false, or not able to be verified? If the claim is false, provide a brief explanation and reference your sources. If the claim is true or not able to be verified, provide a brief explanation and reference your sources as necessary.
+Based on the search results, is the claim true or false? If the claim is false, provide a brief explanation and reference your sources. If the claim can't be verified, verdict should also be false.
 
 Output should be machine-readable, for example:
 ```{
     "claim": "",
-    "verdict": true|false|can't verify,
+    "verdict": true|false,
     "explanation": ""
 }```'''
 
