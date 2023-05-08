@@ -171,7 +171,7 @@ for p in parts:
             obj = json.loads(ans)
             print("Parsed:", obj)
             if obj['verdict'] != 'true' and obj['verdict'] != True:
-                comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation']
+                comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation'] + "\n\n"
         except Exception as ex:
             print(ex)
             had_error = True
