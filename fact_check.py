@@ -73,9 +73,6 @@ def get_pull_request():
     pull_request_number = int(sys.argv[4])
     token = sys.argv[5]
 
-    # Get the authentication token from the environment variable
-    #token = os.environ.get("GITHUB_TOKEN")
-
     # Initialize the Github object
     g = Github(token)
 
@@ -94,9 +91,6 @@ def get_diff(pull_request):
     base_branch = sys.argv[3]
     pull_request_number = int(sys.argv[4])
     token = sys.argv[5]
-    # Get the diff for the pull request
-    #diff_url = f"{repo_url}/compare/{base_branch}...{head_branch}.diff"
-    #diff_response = requests.get(diff_url)
 
     # Get the repository path on the runner
     repo_path = os.environ['GITHUB_WORKSPACE']
