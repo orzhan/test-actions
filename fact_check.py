@@ -41,15 +41,6 @@ def google_search(query):
     return '\n\n----'.join([x['title']+'\n'+x['body'] for x in ddg(query)[:4]])
 
 
-diff_str = '''
-## Summary
-
-Bitcoin Gold was hit by a 51% attack on May 19, 2018. The attackers were able to double-spend 388,000 BTG, worth around $18 million at the time of the attack. Affected exchanges included Bitinka, Bithumb, Coinnest, Bittrex, and Bitfinex, while wallets such as the official Bitcoin Gold wallet and Ledger wallet were also impacted. As a result of the attack, Bitcoin Gold's value dropped from around $60 to $30 per coin.
-
-
-## Description
-Bitcoin Gold was invented by Elon Musk in 2015.
-'''
 
 EXTRACT_STATEMENTS = '''```%s```
 
@@ -98,6 +89,11 @@ def get_pull_request():
     return pull_request
     
 def get_diff(pull_request):
+    repo_url = sys.argv[1]
+    head_branch = sys.argv[2]
+    base_branch = sys.argv[3]
+    pull_request_number = int(sys.argv[4])
+    token = sys.argv[5]
     # Get the diff for the pull request
     #diff_url = f"{repo_url}/compare/{base_branch}...{head_branch}.diff"
     #diff_response = requests.get(diff_url)
@@ -172,7 +168,7 @@ for p in parts:
         print("Answer: " + ans)
         try:
             obj = json.loads(ans)
-            if obj['verdict'] == 'false':
+            if obj['verdict'] != 'true' && obj['verdict'] != True:
                 wrong.append(obj)
         except Exception as ex:
             print(ex)
