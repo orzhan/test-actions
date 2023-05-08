@@ -179,7 +179,7 @@ comment = ''
 
 
 for obj in wrong:    
-        comment += f"Found false claim " + obj['claim'] + ". " + obj['explanation']
+        comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation']
         
 if had_error:
     comment +=  f"Fact-check failed due to errors"
