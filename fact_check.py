@@ -168,7 +168,7 @@ for p in parts:
         print("Answer: " + ans)
         try:
             obj = json.loads(ans)
-            if obj['verdict'] != 'true' && obj['verdict'] != True:
+            if obj['verdict'] != 'true' and obj['verdict'] != True:
                 wrong.append(obj)
         except Exception as ex:
             print(ex)
