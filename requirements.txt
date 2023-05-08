@@ -2,3 +2,4 @@ PyGithub==1.58.1
 requests==2.30.0
 duckduckgo-search==2.9.3
 openai==0.27.6
+tiktoken==0.4.0
