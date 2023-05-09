@@ -116,69 +116,71 @@ diff_str = get_diff(pull_request)
 # Print the diff
 print(diff_str)
 
-# Break into segments
+if len(diff_str.strip()) < 1:
+    print('No diff - exit')
+    pass
+else
+    # Break into segments
+    parts = diff_str.split('\n##')
+    # to do: split long parts
+    # Get statements from each segment
 
-parts = diff_str.split('\n##')
-# to do: split long parts
+    comment = ''
 
-# Get statements from each segment
-
-comment = ''
-
-claims = []
-had_error = False
-for p in parts:
-    if len(p.strip()) <= 1:
-        continue
-    ans = openai_call(EXTRACT_STATEMENTS % p)
-    print("Prompt: " + EXTRACT_STATEMENTS % p)
-    ans = ans.strip().strip('`').strip()
-    ans = ans[ans.find('['):]
-    print("Answer: " + ans)
-    try:
-        obj = json.loads(ans)
-    except Exception as ex:
-        print(ex)
-        had_error = True
-        pass
-    
-    for s in obj:
-        claims.append(s)
-        try:
-            summary = google_search(s['query'])
-        except Exception as ex:
-            print(ex)
-            had_error = True
+    claims = []
+    had_error = False
+    for p in parts:
+        if len(p.strip()) <= 1:
             continue
-        print("Query: " + s['query'])
-        print("Summary: " + summary) 
-        try:
-            ans = openai_call(VERIFY_STATEMENT % (s['claim'], summary))
-        except Exception as ex:
-            print(ex)
-            had_error = True
-            continue
-        print("Prompt: "+ VERIFY_STATEMENT % (s['claim'], summary))
+        ans = openai_call(EXTRACT_STATEMENTS % p)
+        print("Prompt: " + EXTRACT_STATEMENTS % p)
         ans = ans.strip().strip('`').strip()
-        ans = ans[ans.find('{'):]
+        ans = ans[ans.find('['):]
         print("Answer: " + ans)
         try:
             obj = json.loads(ans)
-            print("Parsed:", obj)
-            if obj['verdict'] != 'true' and obj['verdict'] != True:
-                comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation'] + "\n\n"
         except Exception as ex:
             print(ex)
             had_error = True
+            pass
         
-        
-if had_error:
-    comment +=  f"Fact-check failed due to errors"
-    
-    
-print('comment', comment)
-     
-if comment != '':
-    pull_request.create_issue_comment(comment)
+        for s in obj:
+            claims.append(s)
+            try:
+                summary = google_search(s['query'])
+            except Exception as ex:
+                print(ex)
+                had_error = True
+                continue
+            print("Query: " + s['query'])
+            print("Summary: " + summary) 
+            try:
+                ans = openai_call(VERIFY_STATEMENT % (s['claim'], summary))
+            except Exception as ex:
+                print(ex)
+                had_error = True
+                continue
+            print("Prompt: "+ VERIFY_STATEMENT % (s['claim'], summary))
+            ans = ans.strip().strip('`').strip()
+            ans = ans[ans.find('{'):]
+            print("Answer: " + ans)
+            try:
+                obj = json.loads(ans)
+                print("Parsed:", obj)
+                if obj['verdict'] != 'true' and obj['verdict'] != True:
+                    comment += f"Found false claim: `" + obj['claim'] + "`. \n" + obj['explanation'] + "\n\n"
+            except Exception as ex:
+                print(ex)
+                had_error = True
             
-print('token_usage', token_usage)
+            
+    if had_error:
+        comment +=  f"Fact-check failed due to errors"
+        
+        
+    print('comment', comment)
+         
+    if comment != '':
+        pull_request.create_issue_comment(comment)
+                
+    print('token_usage', token_usage)
