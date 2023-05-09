@@ -119,7 +119,7 @@ print(diff_str)
 if len(diff_str.strip()) < 1:
     print('No diff - exit')
     pass
-else
+else:
     # Break into segments
     parts = diff_str.split('\n##')
     # to do: split long parts
