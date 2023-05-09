@@ -103,7 +103,7 @@ def get_diff(pull_request):
     print('git2', subprocess.run(['git', 'checkout', head_branch], cwd=repo_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False))
 
     # Get the diff for the pull request
-    diff_output = subprocess.check_output(['git', 'diff', '--no-prefix', '--unified=0', base_branch, head_branch] + (subpath ? ['--', subpath] : []), cwd=repo_path)
+    diff_output = subprocess.check_output(['git', 'diff', '--no-prefix', '--unified=0', base_branch, head_branch, '--', subpath], cwd=repo_path)
 
     # Convert the bytes to a string
     diff_str = diff_output.decode('utf-8')
