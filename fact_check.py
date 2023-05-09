@@ -145,6 +145,8 @@ else:
             pass
         
         for s in obj:
+            if s is None or s['query'] == "" or s['claim'] == "":
+                continue
             claims.append(s)
             try:
                 summary = google_search(s['query'])
