@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r fact-check/requirements.txt
       - name: Run fact-checking script
-        run: python fact_check.py ${{ github.event.pull_request.head.repo.clone_url }} ${{ github.event.pull_request.head.ref }} ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.number }} ${{ secrets.TOKEN }} ${{ secrets.OPENAI_KEY }} content
+        run: python fact-check/fact_check.py ${{ github.event.pull_request.head.repo.clone_url }} ${{ github.event.pull_request.head.ref }} ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.number }} ${{ secrets.TOKEN }} ${{ secrets.OPENAI_KEY }} content
